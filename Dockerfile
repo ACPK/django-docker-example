@@ -7,4 +7,4 @@ ENV PYTHONUNBUFFERED 1
 ADD ./requirements /requirements
 ADD ./src /code/
 RUN pip install -r requirements/development.txt
-# WORKDIR /code
+WORKDIR /code
