@@ -124,3 +124,17 @@ class QuestionIndexDetailTests(TestCase):
                                            args=(past_question.id,)))
         self.assertContains(response, past_question.question_text,
                             status_code=200)
+
+
+class QuestionCreateTests(TestCase):
+    def test_create_question_page(self):
+        """
+        A new question should be created easily!
+        """
+
+        response = self.client.get(reverse('polls:create'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Create')
+
+    def test_create_actual(self):
+        pass

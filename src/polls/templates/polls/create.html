@@ -1,0 +1,19 @@
+<h1>Create a poll</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:create' %}" method="post">
+    {% csrf_token %}
+    <label for='question_text'>Enter the question: </label><br/>
+    <input name='question_text' type='text'/>
+    <br/>
+    <br/>
+
+    Choices: <br/>
+    <input name='choice_0' type='text'/><br/>
+    <input name='choice_1' type='text'/><br/>
+    <input name='choice_2' type='text'/><br/>
+
+    <br/>
+    <input type="submit" value="Create" /><br/>
+</form>

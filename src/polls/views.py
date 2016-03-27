@@ -29,9 +29,41 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
 
+class CreateView(generic.CreateView):
+    model = Question
+    template_name = 'polls/create.html'
+    fields = ['question_text', 'pub_date']
+    url = 'polls/results.html'
+    # TODO: post request is handled here, not custom
+
+
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+
+def create(request):
+    if not request.POST:
+        return render(request, 'polls/create.html')
+
+    try:
+        text = request.POST['question_text']
+        question = Question.objects.create(question_text=text,
+                                           pub_date=timezone.now())
+
+        choices = []
+        # parse choices
+        for i in range(0, 3):
+                c_txt = request.POST['choice_' + str(i)]
+                choices += [question.choice_set.create(choice_text=c_txt)]
+
+    except (KeyError):
+        return render(request, 'polls/create.html', {
+            'error_message': 'An error occurred while creating the poll.'
+        })
+    else:
+        return HttpResponseRedirect(reverse('polls:detail',
+                                            args=(question.id,)))
 
 
 def vote(request, question_id):
@@ -42,7 +74,7 @@ def vote(request, question_id):
         # Redisplay the question voting form
         return render(request, 'polls/detail.html', {
             'question': question, 'error_message': 'No choice was selected.'
-            })
+        })
     else:
         # TODO: solve race condition using F()
         selected_choice.votes += 1
@@ -53,4 +85,4 @@ def vote(request, question_id):
         # hits the Back button
         # also, use reverse to get the url from the paths
         return HttpResponseRedirect(reverse('polls:results',
-                                    args=(question.id,)))
+                                            args=(question.id,)))
