@@ -7,4 +7,4 @@ then
         exit 1
 fi
 
-docker run --link $id:db -v $(pwd)/src:/code -p 8000:8000 -t -i django_web python /code/manage.py runserver 0.0.0.0:8000
+docker run --link $id:db -v "$(pwd)"/src:/code -p 8000:8000 -t -i django_web python /code/manage.py runserver 0.0.0.0:8000
