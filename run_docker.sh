@@ -1,6 +1,6 @@
 # --add-host=db:172.17.0.2 
 #get postgres ip
-id=$(docker ps -q -f image=postgres)
+id=$(docker ps -q -f ancestor=postgres)
 if [ -z "$id" ] 
 then
         echo "[!] Error: Start the postgres image before running django! Try: docker run -d postgres"
