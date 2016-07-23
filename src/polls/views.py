@@ -51,11 +51,10 @@ def create(request):
         question = Question.objects.create(question_text=text,
                                            pub_date=timezone.now())
 
-        choices = []
         # parse choices
         for i in range(0, 3):
                 c_txt = request.POST['choice_' + str(i)]
-                choices += [question.choice_set.create(choice_text=c_txt)]
+                question.choice_set.create(choice_text=c_txt)
 
     except (KeyError):
         return render(request, 'polls/create.html', {
