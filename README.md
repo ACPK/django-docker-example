@@ -14,6 +14,7 @@ To run the project, do the following steps:
 The code will be saved in the `src` folder of the repository.
 
 After running the Docker container, you get an interactive shell where you can run typical Django commands:
+
 1. `django-admin startproject`
 2. `django-admin startapp`
 3. `python manage.py runserver 0.0.0.0:8000` to start the built-in server. The web application will be available on http://localhost:8000/.
