@@ -4,7 +4,8 @@ ENV PYTHONUNBUFFERED 1
 
 # TODO: phantomjs RUN apt-get install 
 
-ADD ./src /code/
+RUN pip install django && mkdir /static
+COPY django_bash_completion /etc/bash_completion.d/django_bash_completion
+
 WORKDIR /code
-RUN pip install -r requirements.txt && mkdir /static
-ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["/bin/bash", "--init-file", "/etc/bash_completion.d/django_bash_completion"]
