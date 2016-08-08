@@ -1,4 +1,4 @@
-id2=$(docker ps -q -f ancestor=django-docker
+id2=$(docker ps -q -f ancestor=django-docker)
 
 if [ -z "$id2" ]
 then
